@@ -9,13 +9,13 @@ import 'base_styles.dart';
 
 class DarkThemeColors implements BaseStyles {
   // general
-  Color get background => const Color(0xFF232c33);
-  Color get primaryContent => const Color(0xFFE1E1E1);
-  Color get primaryAccent => const Color(0xFF9999aa);
-
+  Color get background => const Color(0xFF012A4A);
+  Color get primaryContent => const Color(0xFFA9D6E5);
+  Color get primaryAccent => const Color(0xFF013A63);
+  Color get secondaryContent => Color(0xFF74c69d);
   // app bar
-  Color get appBarBackground => const Color(0xFF4b5e6d);
-  Color get appBarPrimaryContent => Colors.white;
+  Color get appBarBackground => const Color(0xFF012A4A);
+  Color get appBarPrimaryContent => const Color(0xFFA9D6E5);
 
   // buttons
   Color get buttonBackground => Colors.white60;

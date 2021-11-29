@@ -1,5 +1,11 @@
+import 'package:flutter_app/resources/pages/giam_sat_page.dart';
 import 'package:flutter_app/resources/pages/home_page.dart';
+import 'package:flutter_app/resources/pages/kiem_tra_page.dart';
+import 'package:flutter_app/resources/pages/thu_thap_page.dart';
+import 'package:flutter_app/resources/pages/tra_cuu_page.dart';
+
 import 'package:nylo_framework/nylo_framework.dart';
+import 'package:page_transition/page_transition.dart';
 
 /*
 |--------------------------------------------------------------------------
@@ -13,11 +19,18 @@ import 'package:nylo_framework/nylo_framework.dart';
 */
 
 buildRouter() => nyRoutes((router) {
-
-      router.route("/", (context) => MyHomePage(title: "Hello World"));
+      // router.route("/", (context) => MyHomePage(title: "Hello World"));
 
       // Add your routes here
-
+      router.route(MyHomePage.route, (context) => MyHomePage(),
+          transition: PageTransitionType.fade);
+      router.route(ThuThapPage.route, (context) => ThuThapPage(),
+          transition: PageTransitionType.fade);
+      router.route(KiemTraPage.route, (context) => KiemTraPage(),
+          transition: PageTransitionType.fade);
+      router.route(TraCuuPage.route, (context) => TraCuuPage(),
+          transition: PageTransitionType.fade);
+      router.route(GiamSatPage.route, (context) => GiamSatPage(),
+          transition: PageTransitionType.fade);
       // router.route("/new-page", (context) => NewPage(), transition: PageTransitionType.fade);
-
     });

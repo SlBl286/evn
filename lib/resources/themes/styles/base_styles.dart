@@ -8,7 +8,7 @@ abstract class BaseStyles {
   Color get background;
   Color get primaryContent;
   Color get primaryAccent;
-
+  Color get secondaryContent;
   // app bar
   Color get appBarBackground;
   Color get appBarPrimaryContent;
