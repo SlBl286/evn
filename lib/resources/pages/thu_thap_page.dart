@@ -53,7 +53,7 @@ class _ThuThapPageState extends NyState<ThuThapPage> {
               width: 5,
             ),
             Text(
-              "Xin chao ...",
+              "Xin chào ...",
               style: TextStyle(fontSize: 16),
             ),
           ],
@@ -90,6 +90,7 @@ class _ThuThapPageState extends NyState<ThuThapPage> {
                 ],
               ),
               SearchBar(label: 'tim kiem'),
+
             ],
           ),
         ),

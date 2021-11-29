@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app/app/controllers/controller.dart';
 import 'package:flutter_app/app/controllers/home_controller.dart';
 import 'package:flutter_app/config/app_theme.dart';
 import 'package:flutter_app/resources/pages/giam_sat_page.dart';
@@ -55,7 +56,7 @@ class _MyHomePageState extends NyState<MyHomePage> {
   widgetDidLoad() {}
   @override
   void initState() {
-    _isDarkTheme = true;
+    _isDarkTheme = Controller.isDarkTheme;
     super.initState();
   }
 
@@ -79,7 +80,7 @@ class _MyHomePageState extends NyState<MyHomePage> {
                 width: 5,
               ),
               Text(
-                "Xin chao ...",
+                "Xin chào ...",
                 style: TextStyle(fontSize: 16),
               ),
             ],
@@ -95,6 +96,7 @@ class _MyHomePageState extends NyState<MyHomePage> {
                 } else {
                   NyTheme.set(context, id: "default_light_theme");
                 }
+                Controller.isDarkTheme = value;
                 _isDarkTheme = value;
               });
             },

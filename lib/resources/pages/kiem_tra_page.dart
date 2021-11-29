@@ -43,14 +43,14 @@ class _KiemTraPageState extends NyState<KiemTraPage> {
               },
               icon: Icon(
                 MdiIcons.home,
-                  color: NyColors.of(context).appBarPrimaryContent,
+                color: NyColors.of(context).appBarPrimaryContent,
               ),
             ),
             SizedBox(
               width: 5,
             ),
             Text(
-              "Xin chao ...",
+              "Xin chào ...",
               style: TextStyle(fontSize: 16),
             ),
           ],
@@ -58,11 +58,17 @@ class _KiemTraPageState extends NyState<KiemTraPage> {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(MdiIcons.bell,  color: NyColors.of(context).appBarPrimaryContent,),
+            icon: Icon(
+              MdiIcons.bell,
+              color: NyColors.of(context).appBarPrimaryContent,
+            ),
           ),
           IconButton(
             onPressed: () {},
-            icon: Icon(MdiIcons.refresh,  color: NyColors.of(context).appBarPrimaryContent,),
+            icon: Icon(
+              MdiIcons.refresh,
+              color: NyColors.of(context).appBarPrimaryContent,
+            ),
           ),
         ],
       ),

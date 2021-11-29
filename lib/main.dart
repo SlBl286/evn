@@ -17,7 +17,7 @@ void main() async {
         onGenerateRoute: nylo.router!.generator(),
         lightTheme: lightTheme(),
         darkTheme: darkTheme(),
-        themeMode: ThemeMode.system,
+        themeMode: ThemeMode.light,
         locale: AppLocale.instance.locale,
         supportedLocales: [
           Locale('vn'),

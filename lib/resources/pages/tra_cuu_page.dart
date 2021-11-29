@@ -49,7 +49,7 @@ class _TraCuuPageState extends NyState<TraCuuPage> {
               width: 5,
             ),
             Text(
-              "Xin chao ...",
+              "Xin chào ...",
               style: TextStyle(fontSize: 16),
             ),
           ],
