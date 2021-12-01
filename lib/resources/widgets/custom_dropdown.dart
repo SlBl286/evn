@@ -6,12 +6,12 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 class CustomDropdown extends StatefulWidget {
   final String label;
   Color? backgroundColor = NyColors.light.appBarBackground;
-  List<DropDownItem> chidren = [];
+  List<DropDownItem> options = [];
   CustomDropdown(
       {Key? key,
       required this.label,
       this.backgroundColor,
-      required this.chidren})
+      required this.options})
       : super(key: key);
 
   @override
@@ -53,10 +53,10 @@ class _CustomDropdownState extends State<CustomDropdown> {
         left: xPosition,
         width: width,
         top: (yPosition! + height!),
-        height: widget.chidren.length * height! + 60,
+        height: widget.options.length * height! + 60,
         child: DropDown(
           itemHeight: 40,
-          chidren: widget.chidren,
+          chidren: widget.options,
         ),
       );
     });
@@ -122,20 +122,8 @@ class DropDown extends StatelessWidget {
           SizedBox(
             height: 5,
           ),
-          Align(
-            alignment: Alignment(-0.90, 0),
-            child: ClipPath(
-              clipper: ArrowClipper(),
-              child: Container(
-                height: 20,
-                width: 30,
-                decoration:
-                    BoxDecoration(color: NyColors.of(context).appBarBackground),
-              ),
-            ),
-          ),
           Container(
-              height: chidren.length * itemHeight + 16,
+              height: chidren.length * itemHeight + 20,
               decoration: BoxDecoration(
                 color: NyColors.of(context).appBarBackground,
                 borderRadius: BorderRadius.circular(8),
@@ -149,9 +137,9 @@ class DropDown extends StatelessWidget {
                     child: Column(
                       children: chidren,
                     ),
-                  )
+                  ),
                 ],
-              ))
+              )),
         ],
       ),
     );
@@ -161,49 +149,56 @@ class DropDown extends StatelessWidget {
 class DropDownItem extends StatelessWidget {
   final String text;
   final IconData? iconData;
-  final bool? isSelected;
-
-  const DropDownItem(
-      {Key? key, required this.text, this.iconData, this.isSelected})
-      : super(key: key);
-
+  final bool isSelected;
+  late GlobalKey actionKey;
+  DropDownItem(
+      {Key? key, required this.text, this.iconData, this.isSelected = false})
+      : super(key: key) {
+    actionKey = LabeledGlobalKey(text);
+  }
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            color: NyColors.of(context).appBarBackground,
-            // borderRadius: BorderRadius.circular(8),
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: Row(
-            children: [
-              SizedBox(
-                width: 10,
-              ),
-              Text(
-                text,
-                style: TextStyle(
+    return GestureDetector(
+      key: actionKey,
+      onTap: () {
+        print(text);
+      },
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: NyColors.of(context).appBarBackground,
+              // borderRadius: BorderRadius.circular(8),
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  text,
+                  style: TextStyle(
+                      color: NyColors.of(context).appBarPrimaryContent,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 18,
+                      decoration: TextDecoration.none),
+                ),
+                Spacer(),
+                if (iconData != null)
+                  Icon(
+                    iconData,
                     color: NyColors.of(context).appBarPrimaryContent,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 18,
-                    decoration: TextDecoration.none),
-              ),
-              Spacer(),
-              if (iconData != null)
-                Icon(
-                  iconData,
-                  color: NyColors.of(context).appBarPrimaryContent,
-                )
-            ],
+                  )
+              ],
+            ),
           ),
-        ),
-        Divider(
-          height: 5,
-          color: Colors.white,
-        )
-      ],
+          Divider(
+            height: 5,
+            color: Colors.white,
+          )
+        ],
+      ),
     );
   }
 }
@@ -221,4 +216,43 @@ class ArrowClipper extends CustomClipper<Path> {
 
   @override
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) => true;
+}
+
+class ArrowShape extends ShapeBorder {
+  @override
+  // TODO: implement dimensions
+  EdgeInsetsGeometry get dimensions => throw UnimplementedError();
+
+  @override
+  Path getInnerPath(Rect rect, {TextDirection? textDirection}) {
+    // TODO: implement getInnerPath
+    throw UnimplementedError();
+  }
+
+  @override
+  Path getOuterPath(Rect rect, {TextDirection? textDirection}) {
+    // TODO: implement getOuterPath
+    return getClip(rect.size);
+  }
+
+  @override
+  void paint(Canvas canvas, Rect rect, {TextDirection? textDirection}) {
+    // TODO: implement paint
+  }
+
+  @override
+  ShapeBorder scale(double t) {
+    // TODO: implement scale
+    throw UnimplementedError();
+  }
+
+  Path getClip(Size size) {
+    Path path = Path();
+
+    path.moveTo(0, size.height);
+    path.lineTo(size.width / 2, 0);
+    path.lineTo(size.width, size.height);
+
+    return path;
+  }
 }

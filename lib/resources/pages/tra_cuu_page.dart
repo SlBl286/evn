@@ -17,6 +17,8 @@ class TraCuuPage extends NyStatefulWidget {
 }
 
 class _TraCuuPageState extends NyState<TraCuuPage> {
+ 
+
   @override
   widgetDidLoad() async {}
 
@@ -50,7 +52,10 @@ class _TraCuuPageState extends NyState<TraCuuPage> {
             ),
             Text(
               "Xin chào ...",
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(
+                fontSize: 16,
+                color: NyColors.of(context).appBarPrimaryContent,
+              ),
             ),
           ],
         ),
@@ -80,6 +85,7 @@ class _TraCuuPageState extends NyState<TraCuuPage> {
           ),
         ),
       ),
+     
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 /// Add more styles here and then implement in
 /// light_theme_colors.dart and dark_theme_colors.dart.
 abstract class BaseStyles {
+  bool get isDarkTheme;
   // general
   Color get background;
   Color get primaryContent;

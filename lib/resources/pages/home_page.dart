@@ -56,7 +56,6 @@ class _MyHomePageState extends NyState<MyHomePage> {
   widgetDidLoad() {}
   @override
   void initState() {
-    _isDarkTheme = Controller.isDarkTheme;
     super.initState();
   }
 
@@ -81,14 +80,16 @@ class _MyHomePageState extends NyState<MyHomePage> {
               ),
               Text(
                 "Xin chào ...",
-                style: TextStyle(fontSize: 16),
+                style: TextStyle(
+                    fontSize: 16,
+                    color: NyColors.of(context).appBarPrimaryContent),
               ),
             ],
           ),
         ),
         actions: [
           Switch(
-            value: _isDarkTheme!,
+            value: NyColors.of(context).isDarkTheme,
             onChanged: (bool value) {
               setState(() {
                 if (value) {
@@ -96,8 +97,6 @@ class _MyHomePageState extends NyState<MyHomePage> {
                 } else {
                   NyTheme.set(context, id: "default_light_theme");
                 }
-                Controller.isDarkTheme = value;
-                _isDarkTheme = value;
               });
             },
             activeThumbImage:
@@ -137,7 +136,7 @@ class _MyHomePageState extends NyState<MyHomePage> {
                     NyNavigator.instance.router.call(ThuThapPage.route);
                   },
                   label: 'Thu thập',
-                  backgroundColor: Colors.green,
+                  backgroundColor: Color(0xFF63c3d5),
                   icon: MdiIcons.bagPersonal,
                 ),
                 SquareButton(
@@ -145,14 +144,14 @@ class _MyHomePageState extends NyState<MyHomePage> {
                       Navigator.pushNamed(context, TraCuuPage.route);
                     },
                     label: 'Tra cứu',
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Color(0xFF00b4d8),
                     icon: Icons.search),
                 SquareButton(
                     onpress: () {
                       Navigator.pushNamed(context, KiemTraPage.route);
                     },
                     label: 'Kiểm tra',
-                    backgroundColor: Colors.red,
+                    backgroundColor: Color(0xFF0077b6),
                     icon: MdiIcons.cogBox),
                 SquareButton(
                   onpress: () {
@@ -160,7 +159,7 @@ class _MyHomePageState extends NyState<MyHomePage> {
                   },
                   icon: MdiIcons.eyeCircle,
                   label: 'Giám sát',
-                  backgroundColor: Colors.orange,
+                  backgroundColor: Color(0xFF03045e),
                 ),
               ],
             ),

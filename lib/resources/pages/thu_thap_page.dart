@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_app/config/app_theme.dart';
+import 'package:flutter_app/resources/pages/form_doi_tuong_page.dart';
 import 'package:flutter_app/resources/pages/home_page.dart';
 import 'package:flutter_app/resources/widgets/custom_dropdown.dart';
 import 'package:flutter_app/resources/widgets/search_bar.dart';
@@ -21,8 +22,11 @@ class ThuThapPage extends NyStatefulWidget {
 }
 
 class _ThuThapPageState extends NyState<ThuThapPage> {
+  List<Widget> _objList = [];
   @override
-  widgetDidLoad() async {}
+  widgetDidLoad() async {
+    await widget.controller.getListBieuMau();
+  }
 
   @override
   void dispose() {
@@ -54,7 +58,10 @@ class _ThuThapPageState extends NyState<ThuThapPage> {
             ),
             Text(
               "Xin chào ...",
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(
+                fontSize: 16,
+                color: NyColors.of(context).appBarPrimaryContent,
+              ),
             ),
           ],
         ),
@@ -62,14 +69,14 @@ class _ThuThapPageState extends NyState<ThuThapPage> {
           IconButton(
             onPressed: () {},
             icon: Icon(
-              MdiIcons.bell,
+              Icons.search,
               color: NyColors.of(context).appBarPrimaryContent,
             ),
           ),
           IconButton(
             onPressed: () {},
             icon: Icon(
-              MdiIcons.refresh,
+              MdiIcons.bell,
               color: NyColors.of(context).appBarPrimaryContent,
             ),
           ),
@@ -79,18 +86,85 @@ class _ThuThapPageState extends NyState<ThuThapPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              CustomDropdown(
-                backgroundColor: NyColors.of(context).appBarBackground,
-                label: "Chọn biểu mẫu",
-                chidren: [
-                  DropDownItem(text: "biểu mẫu 1"),
-                  DropDownItem(text: "biểu mẫu 2"),
-                  DropDownItem(text: "biểu mẫu 3"),
-                  DropDownItem(text: "biểu mẫu 4")
-                ],
+              Theme(
+                data: Theme.of(context).copyWith(
+                  canvasColor: NyColors.of(context).appBarBackground,
+                ),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButtonFormField<int>(
+                    iconEnabledColor: NyColors.of(context).appBarPrimaryContent,
+                    decoration: InputDecoration(
+                      label: Text(
+                        "Biểu mẫu",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      filled: true,
+                      fillColor: NyColors.of(context).appBarBackground,
+                    ),
+                    iconSize: 24,
+                    isExpanded: true,
+                    style: TextStyle(
+                      color: NyColors.of(context).appBarPrimaryContent,
+                    ),
+                    onChanged: (int? newValue) {
+                      setState(() {
+                        widget.controller.currentBieuMauId = newValue;
+                        widget.controller.getListObject();
+                        _objList.clear();
+                        if (widget.controller.listDoiTuong.length > 0) {
+                          for (var item in widget.controller.listDoiTuong) {
+                            _objList.add(GestureDetector(
+                              onTap: () {
+                                print(item.name);
+                                routeTo(FormDoiTuongPage.route, data: item);
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(),
+                                padding: EdgeInsets.only(bottom: 10),
+                                child: ListTile(
+                                  tileColor:
+                                      NyColors.of(context).secondaryContent,
+                                  leading: Icon(
+                                    Icons.person,
+                                    color: Colors.white,
+                                  ),
+                                  title: Text(
+                                    item.name,
+                                    style: TextStyle(),
+                                  ),
+                                  subtitle: Text(
+                                    item.id.toString(),
+                                    style: TextStyle(),
+                                  ),
+                                  trailing: Icon(
+                                    MdiIcons.bell,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ));
+                          }
+                        }
+                      });
+                    },
+                    items: widget.controller.listBieuMau
+                        .map<DropdownMenuItem<int>>((BieuMau item) {
+                      return DropdownMenuItem<int>(
+                        value: item.id,
+                        child: Text(item.name),
+                      );
+                    }).toList(),
+                  ),
+                ),
               ),
-              SearchBar(label: 'tim kiem'),
-
+              Builder(builder: (context) {
+                return Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  child: Column(
+                    children: _objList,
+                  ),
+                );
+              })
             ],
           ),
         ),

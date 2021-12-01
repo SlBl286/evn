@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/config/app_theme.dart';
+import 'package:flutter_app/resources/pages/form_kiem_tra_page.dart';
 import 'package:flutter_app/resources/pages/home_page.dart';
 import 'package:flutter_app/resources/widgets/kiem_tra_listTile.dart';
 import 'package:flutter_app/resources/widgets/search_bar.dart';
@@ -50,8 +51,11 @@ class _KiemTraPageState extends NyState<KiemTraPage> {
               width: 5,
             ),
             Text(
-              "Xin chào ...",
-              style: TextStyle(fontSize: 16),
+              "Kiểm tra ",
+              style: TextStyle(
+                fontSize: 16,
+                color: NyColors.of(context).appBarPrimaryContent,
+              ),
             ),
           ],
         ),
@@ -82,6 +86,9 @@ class _KiemTraPageState extends NyState<KiemTraPage> {
                 List<Widget> a = [];
                 for (var i = 0; i < 10; i++) {
                   a.add(KiemTraItem(
+                    onItemTap: () {
+                      routeTo(FormKiemTraPage.route, data: "test");
+                    },
                     line1: "1. sổ nhật ký vận hành",
                     line2: "1. sổ nhật ký vận hành",
                     line3: "23 bản ghi",

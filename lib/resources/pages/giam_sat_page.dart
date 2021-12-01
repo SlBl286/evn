@@ -17,14 +17,21 @@ class GiamSatPage extends NyStatefulWidget {
   _GiamSatPageState createState() => _GiamSatPageState();
 }
 
-class _GiamSatPageState extends NyState<GiamSatPage>
-    with TickerProviderStateMixin {
-  late TabController _tabController;
+class _GiamSatPageState extends NyState<GiamSatPage> {
+  int _selectedIndex = 1;
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
+  static const List<Widget> tabOptions = <Widget>[
+    MapTab(),
+    DsTab(),
+  ];
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this, initialIndex: 1);
   }
 
   @override
@@ -32,7 +39,6 @@ class _GiamSatPageState extends NyState<GiamSatPage>
 
   @override
   void dispose() {
-    _tabController.dispose();
     super.dispose();
   }
 
@@ -53,6 +59,7 @@ class _GiamSatPageState extends NyState<GiamSatPage>
               },
               icon: Icon(
                 MdiIcons.home,
+                color: NyColors.of(context).appBarPrimaryContent,
               ),
             ),
             SizedBox(
@@ -60,79 +67,106 @@ class _GiamSatPageState extends NyState<GiamSatPage>
             ),
             Text(
               "Giám sát",
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(
+                fontSize: 16,
+                color: NyColors.of(context).appBarPrimaryContent,
+              ),
             ),
           ],
         ),
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(MdiIcons.bell),
+            icon: Icon(
+              MdiIcons.bell,
+              color: NyColors.of(context).appBarPrimaryContent,
+            ),
           ),
         ],
-        bottom: TabBar(
-          indicatorWeight: 3,
-          controller: _tabController,
-          tabs: const <Widget>[
-            Tab(
-              text: "Bản đồ",
-            ),
-            Tab(
-              text: "Danh sách",
-            ),
-          ],
-        ),
       ),
       body: SafeArea(
-        child: TabBarView(
-          controller: _tabController,
-          physics: NeverScrollableScrollPhysics(),
-          children: <Widget>[
-            Center(
-              child: MaplibreMap(
-                initialCameraPosition: CameraPosition(
-                  target: LatLng(15.023069980780286, 105.7213568620676),
-                  zoom: 5,
-                ),
-              ),
-            ),
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  SearchBar(label: 'tim kiem'),
-                  Builder(builder: (context) {
-                    List<Widget> a = [];
-                    for (var i = 0; i < 10; i++) {
-                      a.add(ListTile(
-                        leading: Icon(
-                          Icons.person,
-                          color: Colors.grey,
-                        ),
-                        title: Text(
-                          "P04 chuyen vien",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        subtitle: Text(
-                          "P04 chuyen vien",
-                          style: TextStyle(color: Colors.black54),
-                        ),
-                        trailing: Icon(
-                          MdiIcons.bell,
-                          color: Colors.grey,
-                        ),
-                      ));
-                    }
-                    return Container(
-                      child: Column(
-                        children: a,
-                      ),
-                    );
-                  })
-                ],
-              ),
-            ),
-          ],
+        child: tabOptions.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.map_outlined),
+            label: 'Bản đồ',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list_alt_outlined),
+            label: 'Danh sách',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: NyColors.of(context).primaryAccent,
+        onTap: _onItemTapped,
+      ),
+    );
+  }
+}
+
+class MapTab extends StatelessWidget {
+  const MapTab({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: MaplibreMap(
+        initialCameraPosition: CameraPosition(
+          target: LatLng(15.023069980780286, 105.7213568620676),
+          zoom: 5,
         ),
+      ),
+    );
+  }
+}
+
+class DsTab extends StatelessWidget {
+  const DsTab({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          SearchBar(label: 'tim kiem'),
+          Builder(builder: (context) {
+            List<Widget> a = [];
+            for (var i = 0; i < 10; i++) {
+              a.add(Container(
+                color: NyColors.of(context).secondaryContent,
+                child: ListTile(
+                  leading: Icon(
+                    Icons.person,
+                    color: Colors.white,
+                  ),
+                  title: Text(
+                    "P04 chuyen vien",
+                    style: TextStyle(
+                      color: NyColors.of(context).appBarPrimaryContent,
+                    ),
+                  ),
+                  subtitle: Text(
+                    "P04 chuyen vien",
+                    style: TextStyle(
+                      color: NyColors.of(context).appBarPrimaryContent,
+                    ),
+                  ),
+                  trailing: Icon(
+                    MdiIcons.bell,
+                    color: Colors.white,
+                  ),
+                ),
+              ));
+            }
+            return Container(
+              child: Column(
+                children: a,
+              ),
+            );
+          })
+        ],
       ),
     );
   }
