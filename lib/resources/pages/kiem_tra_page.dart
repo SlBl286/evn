@@ -89,6 +89,9 @@ class _KiemTraPageState extends NyState<KiemTraPage> {
                     onItemTap: () {
                       routeTo(FormKiemTraPage.route, data: "test");
                     },
+                    onAddPress: () {
+                      routeTo(FormKiemTraPage.route, data: "them moi");
+                    },
                     line1: "1. sổ nhật ký vận hành",
                     line2: "1. sổ nhật ký vận hành",
                     line3: "23 bản ghi",

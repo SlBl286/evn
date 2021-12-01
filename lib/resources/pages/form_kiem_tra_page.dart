@@ -17,9 +17,12 @@ class FormKiemTraPage extends NyStatefulWidget {
 }
 
 class _FormKiemTraPageState extends NyState<FormKiemTraPage> {
+  String? test;
   final _formKey = GlobalKey<FormBuilderState>();
   @override
-  widgetDidLoad() async {}
+  widgetDidLoad() async {
+    test = widget.data();
+  }
 
   @override
   void dispose() {
@@ -30,7 +33,7 @@ class _FormKiemTraPageState extends NyState<FormKiemTraPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('test'),
+        title: Text(test ?? 'test'),
       ),
       body: SafeArea(
           child: SingleChildScrollView(
