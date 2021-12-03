@@ -22,6 +22,7 @@ class ThuThapPage extends NyStatefulWidget {
 }
 
 class _ThuThapPageState extends NyState<ThuThapPage> {
+  bool isSearching = false;
   List<Widget> _objList = [];
   @override
   widgetDidLoad() async {
@@ -40,46 +41,80 @@ class _ThuThapPageState extends NyState<ThuThapPage> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: NyColors.of(context).appBarBackground,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            IconButton(
-              onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, MyHomePage.route, (route) => false);
-              },
-              icon: Icon(
-                MdiIcons.home,
-                color: NyColors.of(context).appBarPrimaryContent,
+        title: isSearching
+            ? TextField(
+                cursorColor: NyColors.of(context).appBarPrimaryContent,
+                decoration: InputDecoration(
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: NyColors.of(context).appBarPrimaryContent),
+                    ),
+                    focusedBorder: InputBorder.none,
+                    hintText: 'Tìm kiếm',
+                    hintStyle: TextStyle(
+                        color: NyColors.of(context).appBarPrimaryContent),
+                    icon: Icon(
+                      Icons.search,
+                      color: NyColors.of(context).appBarPrimaryContent,
+                    )),
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, MyHomePage.route, (route) => false);
+                    },
+                    icon: Icon(
+                      MdiIcons.home,
+                      color: NyColors.of(context).appBarPrimaryContent,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    "Xin chào ...",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: NyColors.of(context).appBarPrimaryContent,
+                    ),
+                  ),
+                ],
               ),
-            ),
-            SizedBox(
-              width: 5,
-            ),
-            Text(
-              "Xin chào ...",
-              style: TextStyle(
-                fontSize: 16,
-                color: NyColors.of(context).appBarPrimaryContent,
-              ),
-            ),
-          ],
-        ),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.search,
-              color: NyColors.of(context).appBarPrimaryContent,
+          isSearching
+              ? IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isSearching = false;
+                    });
+                  },
+                  icon: Icon(
+                    Icons.cancel,
+                    color: NyColors.of(context).appBarPrimaryContent,
+                  ),
+                )
+              : IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isSearching = true;
+                    });
+                  },
+                  icon: Icon(
+                    Icons.search,
+                    color: NyColors.of(context).appBarPrimaryContent,
+                  ),
+                ),
+          if (!isSearching)
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                MdiIcons.bell,
+                color: NyColors.of(context).appBarPrimaryContent,
+              ),
             ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              MdiIcons.bell,
-              color: NyColors.of(context).appBarPrimaryContent,
-            ),
-          ),
         ],
       ),
       body: SafeArea(
@@ -122,19 +157,18 @@ class _ThuThapPageState extends NyState<ThuThapPage> {
                                 decoration: BoxDecoration(),
                                 padding: EdgeInsets.only(bottom: 10),
                                 child: ListTile(
-                                  tileColor:
-                                      NyColors.of(context).secondaryContent,
+                                  tileColor: NyColors.of(context).primaryAccent,
                                   leading: Icon(
                                     Icons.person,
                                     color: Colors.white,
                                   ),
                                   title: Text(
                                     item.name,
-                                    style: TextStyle(),
+                                    style: TextStyle(color: Colors.white),
                                   ),
                                   subtitle: Text(
                                     item.id.toString(),
-                                    style: TextStyle(),
+                                    style: TextStyle(color: Colors.white),
                                   ),
                                   trailing: Icon(
                                     MdiIcons.bell,

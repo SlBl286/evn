@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/config/app_theme.dart';
+import 'package:flutter_app/resources/pages/doi_tuong_kiem_tra_page.dart';
 import 'package:flutter_app/resources/pages/form_kiem_tra_page.dart';
 import 'package:flutter_app/resources/pages/home_page.dart';
 import 'package:flutter_app/resources/widgets/kiem_tra_listTile.dart';
@@ -19,6 +20,7 @@ class KiemTraPage extends NyStatefulWidget {
 }
 
 class _KiemTraPageState extends NyState<KiemTraPage> {
+  bool isSearching = false;
   @override
   widgetDidLoad() async {}
 
@@ -34,46 +36,80 @@ class _KiemTraPageState extends NyState<KiemTraPage> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: NyColors.of(context).appBarBackground,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            IconButton(
-              onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, MyHomePage.route, (route) => false);
-              },
-              icon: Icon(
-                MdiIcons.home,
-                color: NyColors.of(context).appBarPrimaryContent,
+        title: isSearching
+            ? TextField(
+                cursorColor: NyColors.of(context).appBarPrimaryContent,
+                decoration: InputDecoration(
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: NyColors.of(context).appBarPrimaryContent),
+                    ),
+                    focusedBorder: InputBorder.none,
+                    hintText: 'Tìm kiếm',
+                    hintStyle: TextStyle(
+                        color: NyColors.of(context).appBarPrimaryContent),
+                    icon: Icon(
+                      Icons.search,
+                      color: NyColors.of(context).appBarPrimaryContent,
+                    )),
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, MyHomePage.route, (route) => false);
+                    },
+                    icon: Icon(
+                      MdiIcons.home,
+                      color: NyColors.of(context).appBarPrimaryContent,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    "Kiểm tra ",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: NyColors.of(context).appBarPrimaryContent,
+                    ),
+                  ),
+                ],
               ),
-            ),
-            SizedBox(
-              width: 5,
-            ),
-            Text(
-              "Kiểm tra ",
-              style: TextStyle(
-                fontSize: 16,
-                color: NyColors.of(context).appBarPrimaryContent,
-              ),
-            ),
-          ],
-        ),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              MdiIcons.bell,
-              color: NyColors.of(context).appBarPrimaryContent,
+          isSearching
+              ? IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isSearching = false;
+                    });
+                  },
+                  icon: Icon(
+                    Icons.cancel,
+                    color: NyColors.of(context).appBarPrimaryContent,
+                  ),
+                )
+              : IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isSearching = true;
+                    });
+                  },
+                  icon: Icon(
+                    Icons.search,
+                    color: NyColors.of(context).appBarPrimaryContent,
+                  ),
+                ),
+          if (!isSearching)
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                MdiIcons.bell,
+                color: NyColors.of(context).appBarPrimaryContent,
+              ),
             ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              MdiIcons.refresh,
-              color: NyColors.of(context).appBarPrimaryContent,
-            ),
-          ),
         ],
       ),
       body: SafeArea(
@@ -81,13 +117,12 @@ class _KiemTraPageState extends NyState<KiemTraPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SearchBar(label: 'tim kiem'),
               Builder(builder: (context) {
                 List<Widget> a = [];
                 for (var i = 0; i < 10; i++) {
                   a.add(KiemTraItem(
                     onItemTap: () {
-                      routeTo(FormKiemTraPage.route, data: "test");
+                      routeTo(DoiTuongKiemTraPage.route, data: "test");
                     },
                     onAddPress: () {
                       routeTo(FormKiemTraPage.route, data: "them moi");

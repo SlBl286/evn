@@ -6,6 +6,7 @@ import 'package:flutter_app/app/controllers/home_controller.dart';
 import 'package:flutter_app/config/app_theme.dart';
 import 'package:flutter_app/resources/pages/giam_sat_page.dart';
 import 'package:flutter_app/resources/pages/kiem_tra_page.dart';
+import 'package:flutter_app/resources/pages/settings_page.dart';
 import 'package:flutter_app/resources/pages/thu_thap_page.dart';
 import 'package:flutter_app/resources/pages/tra_cuu_page.dart';
 
@@ -63,6 +64,16 @@ class _MyHomePageState extends NyState<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // flexibleSpace: Container(
+        //   decoration: BoxDecoration(
+        //     image: DecorationImage(
+        //         image: AssetImage(
+        //           'public/assets/images/appbar_img.jpg',
+        //         ),
+        //         fit: BoxFit.fill,
+        //         matchTextDirection: true),
+        //   ),
+        // ),
         backgroundColor: NyColors.of(context).appBarBackground,
         title: Container(
           child: Row(
@@ -81,29 +92,29 @@ class _MyHomePageState extends NyState<MyHomePage> {
               Text(
                 "Xin chào ...",
                 style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 20,
                     color: NyColors.of(context).appBarPrimaryContent),
               ),
             ],
           ),
         ),
         actions: [
-          Switch(
-            value: NyColors.of(context).isDarkTheme,
-            onChanged: (bool value) {
-              setState(() {
-                if (value) {
-                  NyTheme.set(context, id: "default_dark_theme");
-                } else {
-                  NyTheme.set(context, id: "default_light_theme");
-                }
-              });
-            },
-            activeThumbImage:
-                new AssetImage("public/assets/app_icon/dark_theme_icon.png"),
-            inactiveThumbImage:
-                new AssetImage("public/assets/app_icon/light_theme_icon.png"),
-          ),
+          // Switch(
+          //   value: NyColors.of(context).isDarkTheme,
+          //   onChanged: (bool value) {
+          //     setState(() {
+          //       if (value) {
+          //         NyTheme.set(context, id: "default_dark_theme");
+          //       } else {
+          //         NyTheme.set(context, id: "default_light_theme");
+          //       }
+          //     });
+          //   },
+          //   activeThumbImage:
+          //       new AssetImage("public/assets/app_icon/dark_theme_icon.png"),
+          //   inactiveThumbImage:
+          //       new AssetImage("public/assets/app_icon/light_theme_icon.png"),
+          // ),
           IconButton(
             color: NyColors.of(context).appBarPrimaryContent,
             onPressed: () {},
@@ -111,7 +122,9 @@ class _MyHomePageState extends NyState<MyHomePage> {
           ),
           IconButton(
             color: NyColors.of(context).appBarPrimaryContent,
-            onPressed: () {},
+            onPressed: () {
+              routeTo(SettingsPage.route);
+            },
             icon: Icon(Icons.settings),
           ),
         ],

@@ -1,8 +1,10 @@
+import 'package:flutter_app/resources/pages/doi_tuong_kiem_tra_page.dart';
 import 'package:flutter_app/resources/pages/form_doi_tuong_page.dart';
 import 'package:flutter_app/resources/pages/form_kiem_tra_page.dart';
 import 'package:flutter_app/resources/pages/giam_sat_page.dart';
 import 'package:flutter_app/resources/pages/home_page.dart';
 import 'package:flutter_app/resources/pages/kiem_tra_page.dart';
+import 'package:flutter_app/resources/pages/settings_page.dart';
 import 'package:flutter_app/resources/pages/thu_thap_page.dart';
 import 'package:flutter_app/resources/pages/tra_cuu_page.dart';
 
@@ -38,5 +40,10 @@ buildRouter() => nyRoutes((router) {
           transition: PageTransitionType.fade);
       router.route(FormKiemTraPage.route, (context) => FormKiemTraPage(),
           transition: PageTransitionType.fade);
+      router.route(
+          DoiTuongKiemTraPage.route, (context) => DoiTuongKiemTraPage(),
+          transition: PageTransitionType.fade);
+      router.route(SettingsPage.route, (context) => SettingsPage(),
+          transition: PageTransitionType.rightToLeft);
       // router.route("/new-page", (context) => NewPage(), transition: PageTransitionType.fade);
     });

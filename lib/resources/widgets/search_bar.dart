@@ -17,34 +17,71 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBarState extends State<SearchBar> {
+  bool isSearchOpened = false;
+  late GlobalKey actionKey;
+  double? height, width, xPosition, yPosition;
+  OverlayEntry? floatingDropdown;
+
+  @override
+  void initState() {
+    actionKey = LabeledGlobalKey(widget.label);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    actionKey.currentState!.dispose();
+    super.dispose();
+  }
+
+  void findDropdownData() {
+    RenderBox renderBox =
+        actionKey.currentContext!.findRenderObject() as RenderBox;
+    width = renderBox.size.width;
+    height = renderBox.size.height;
+    Offset offset = renderBox.localToGlobal(Offset.zero);
+    xPosition = offset.dx;
+    yPosition = offset.dy;
+  }
+
+  OverlayEntry _createFloatingDropdown() {
+    return OverlayEntry(builder: (context) {
+      return Positioned(
+        left: 10,
+        width: width! + 50,
+        top: (yPosition!),
+        height: height!,
+        child: Container(
+          color: NyColors.of(context).background,
+          width: 100,
+          child: TextField(),
+        ),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 20),
-      decoration: BoxDecoration(
-        color: NyColors.of(context).primaryAccent,
-      ),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: TextField(
-              style: TextStyle(color: NyColors.of(context).primaryContent),
-              cursorColor: NyColors.of(context).primaryContent,
-              decoration: InputDecoration(
-                hintText: "Tìm kiếm",
-                hintStyle: TextStyle(
-                  color: NyColors.of(context).primaryContent,
-                ),
-                border: InputBorder.none,
-              ),
-              onChanged: (String keyword) {},
-            ),
-          ),
-          Icon(
-            Icons.search,
-            color: NyColors.of(context).primaryContent,
-          )
-        ],
+    return GestureDetector(
+      key: actionKey,
+      onTap: () {
+        print(isSearchOpened);
+        setState(() {
+          if (isSearchOpened) {
+            floatingDropdown!.remove();
+          } else {
+            findDropdownData();
+
+            floatingDropdown = _createFloatingDropdown();
+            Overlay.of(context)!.insert(floatingDropdown!);
+          }
+
+          isSearchOpened = !isSearchOpened;
+        });
+      },
+      child: Icon(
+        Icons.search,
+        color: NyColors.of(context).appBarPrimaryContent,
       ),
     );
   }

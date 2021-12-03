@@ -17,8 +17,7 @@ class TraCuuPage extends NyStatefulWidget {
 }
 
 class _TraCuuPageState extends NyState<TraCuuPage> {
- 
-
+  bool isSearching = false;
   @override
   widgetDidLoad() async {}
 
@@ -34,58 +33,89 @@ class _TraCuuPageState extends NyState<TraCuuPage> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: NyColors.of(context).appBarBackground,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            IconButton(
-              onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, MyHomePage.route, (route) => false);
-              },
-              icon: Icon(
-                MdiIcons.home,
-                color: NyColors.of(context).appBarPrimaryContent,
+        title: isSearching
+            ? TextField(
+                cursorColor: NyColors.of(context).appBarPrimaryContent,
+                decoration: InputDecoration(
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: NyColors.of(context).appBarPrimaryContent),
+                    ),
+                    focusedBorder: InputBorder.none,
+                    hintText: 'Tìm kiếm',
+                    hintStyle: TextStyle(
+                        color: NyColors.of(context).appBarPrimaryContent),
+                    icon: Icon(
+                      Icons.search,
+                      color: NyColors.of(context).appBarPrimaryContent,
+                    )),
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, MyHomePage.route, (route) => false);
+                    },
+                    icon: Icon(
+                      MdiIcons.home,
+                      color: NyColors.of(context).appBarPrimaryContent,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    "Xin chào ...",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: NyColors.of(context).appBarPrimaryContent,
+                    ),
+                  ),
+                ],
               ),
-            ),
-            SizedBox(
-              width: 5,
-            ),
-            Text(
-              "Xin chào ...",
-              style: TextStyle(
-                fontSize: 16,
-                color: NyColors.of(context).appBarPrimaryContent,
-              ),
-            ),
-          ],
-        ),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              MdiIcons.bell,
-              color: NyColors.of(context).appBarPrimaryContent,
+          isSearching
+              ? IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isSearching = false;
+                    });
+                  },
+                  icon: Icon(
+                    Icons.cancel,
+                    color: NyColors.of(context).appBarPrimaryContent,
+                  ),
+                )
+              : IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isSearching = true;
+                    });
+                  },
+                  icon: Icon(
+                    Icons.search,
+                    color: NyColors.of(context).appBarPrimaryContent,
+                  ),
+                ),
+          if (!isSearching)
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                MdiIcons.bell,
+                color: NyColors.of(context).appBarPrimaryContent,
+              ),
             ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              MdiIcons.refresh,
-              color: NyColors.of(context).appBarPrimaryContent,
-            ),
-          ),
         ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            children: [
-              SearchBar(label: 'tim kiem'),
-            ],
+            children: [],
           ),
         ),
       ),
-     
     );
   }
 }

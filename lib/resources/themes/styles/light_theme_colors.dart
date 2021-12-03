@@ -10,10 +10,10 @@ import 'base_styles.dart';
 class LightThemeColors implements BaseStyles {
   bool get isDarkTheme => false;
   // general
-  Color get background => const Color(0xFFcaf0f8);
-  Color get primaryContent => Color(0xFFF2F2F2);
-  Color get secondaryContent => Color(0xFF00b4d8);
-  Color get primaryAccent => const Color(0xFF0077b6);
+  Color get background => const Color(0xFFF2F2F2);
+  Color get primaryContent => Color(0xFF03045e);
+  Color get secondaryContent => Color(0xFFF2F2F2);
+  Color get primaryAccent => const Color(0xFF0096c7);
 
   // app bar
   Color get appBarBackground => const Color(0xFF0077b6);
@@ -27,10 +27,10 @@ class LightThemeColors implements BaseStyles {
   Color get bottomTabBarBackground => Colors.white;
 
   // bottom tab bar - icons
-  Color get bottomTabBarIconSelected => Colors.blue;
+  Color get bottomTabBarIconSelected => Color(0xFF0077b6);
   Color get bottomTabBarIconUnselected => Colors.black54;
 
   // bottom tab bar - label
-  Color get bottomTabBarLabelUnselected => Colors.black45;
+  Color get bottomTabBarLabelUnselected => Color(0xFF0077b6);
   Color get bottomTabBarLabelSelected => Colors.black;
 }

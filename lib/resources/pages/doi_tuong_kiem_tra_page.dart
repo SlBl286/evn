@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/config/app_theme.dart';
 import 'package:flutter_app/resources/pages/home_page.dart';
-import 'package:flutter_app/resources/widgets/search_bar.dart';
+import 'package:flutter_app/resources/widgets/setting_item_widget.dart';
+import 'package:flutter_app/resources/widgets/so_item.dart';
 import 'package:maplibre_gl/mapbox_gl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:nylo_framework/nylo_framework.dart';
 import 'package:nylo_support/widgets/ny_stateful_widget.dart';
-import '../../app/controllers/giam_sat_controller.dart';
+import '../../app/controllers/doi_tuong_kiem_tra_controller.dart';
 import 'package:nylo_support/widgets/ny_state.dart';
 
-class GiamSatPage extends NyStatefulWidget {
-  final GiamSatController controller = GiamSatController();
-  static const route = "/giam_sat";
-  GiamSatPage({Key? key}) : super(key: key);
+class DoiTuongKiemTraPage extends NyStatefulWidget {
+  static const route = "/doi_tuong_kiem_tra";
+  final DoiTuongKiemTraController controller = DoiTuongKiemTraController();
+
+  DoiTuongKiemTraPage({Key? key}) : super(key: key);
 
   @override
-  _GiamSatPageState createState() => _GiamSatPageState();
+  _DoiTuongKiemTraPageState createState() => _DoiTuongKiemTraPageState();
 }
 
-class _GiamSatPageState extends NyState<GiamSatPage> {
+class _DoiTuongKiemTraPageState extends NyState<DoiTuongKiemTraPage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool isSearching = false;
   int _selectedIndex = 1;
   void _onItemTapped(int index) {
@@ -31,11 +35,6 @@ class _GiamSatPageState extends NyState<GiamSatPage> {
     DsTab(),
   ];
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   widgetDidLoad() async {}
 
   @override
@@ -43,9 +42,18 @@ class _GiamSatPageState extends NyState<GiamSatPage> {
     super.dispose();
   }
 
+  void _openEndDrawer() {
+    _scaffoldKey.currentState!.openEndDrawer();
+  }
+
+  void _closeEndDrawer() {
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: NyColors.of(context).background,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -72,8 +80,9 @@ class _GiamSatPageState extends NyState<GiamSatPage> {
                 children: [
                   IconButton(
                     onPressed: () {
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, MyHomePage.route, (route) => false);
+                      routeTo(MyHomePage.route,
+                          navigationType: NavigationType.pushAndRemoveUntil,
+                          removeUntilPredicate: (route) => false);
                     },
                     icon: Icon(
                       MdiIcons.home,
@@ -84,7 +93,7 @@ class _GiamSatPageState extends NyState<GiamSatPage> {
                     width: 5,
                   ),
                   Text(
-                    "Giám sát",
+                    "Sổ nhật ký vận hành",
                     style: TextStyle(
                       fontSize: 20,
                       color: NyColors.of(context).appBarPrimaryContent,
@@ -117,15 +126,52 @@ class _GiamSatPageState extends NyState<GiamSatPage> {
                 color: NyColors.of(context).appBarPrimaryContent,
               ),
             ),
-          if (!isSearching)
+          if (_selectedIndex == 1 && !isSearching)
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                _openEndDrawer();
+              },
               icon: Icon(
-                MdiIcons.bell,
+                Icons.menu,
                 color: NyColors.of(context).appBarPrimaryContent,
               ),
             ),
         ],
+      ),
+      endDrawer: Drawer(
+        child: SafeArea(
+          child: Container(
+            color: NyColors.of(context).background,
+            child: Column(
+              children: <Widget>[
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: NyColors.of(context).appBarBackground,
+                  height: AppBar().preferredSize.height,
+                  child: Center(
+                      child: Text('Tùy chọn',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: NyColors.of(context).appBarPrimaryContent,
+                          ))),
+                ),
+                Divider(
+                  indent: 5,
+                  endIndent: 5,
+                  color: NyColors.of(context).primaryAccent,
+                ),
+                SettingItemWidget(label: 'Sắp xếp', icon: Icons.sort_by_alpha),
+                SettingItemWidget(label: 'Lọc theo', icon: Icons.filter_list),
+                SettingItemWidget(label: 'Chỉnh sửa', icon: Icons.edit),
+                Divider(
+                  indent: 5,
+                  endIndent: 5,
+                  color: NyColors.of(context).primaryAccent,
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
       body: SafeArea(
         child: tabOptions.elementAt(_selectedIndex),
@@ -190,35 +236,11 @@ class DsTab extends StatelessWidget {
           Builder(builder: (context) {
             List<Widget> a = [];
             for (var i = 0; i < 10; i++) {
-              a.add(Container(
-                margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                color: NyColors.of(context).primaryAccent,
-                child: ListTile(
-                  leading: Icon(
-                    Icons.person,
-                    color: Colors.white,
-                  ),
-                  title: Text(
-                    "P04 chuyen vien",
-                    style: TextStyle(
-                      color: NyColors.of(context).appBarPrimaryContent,
-                    ),
-                  ),
-                  subtitle: Text(
-                    "P04 chuyen vien",
-                    style: TextStyle(
-                      color: NyColors.of(context).appBarPrimaryContent,
-                    ),
-                  ),
-                  trailing: Icon(
-                    MdiIcons.bell,
-                    color: Colors.white,
-                  ),
-                ),
+              a.add(SoItem(
+                name: "Doi TT&QLVH $i",
               ));
             }
             return Container(
-              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
               child: Column(
                 children: a,
               ),

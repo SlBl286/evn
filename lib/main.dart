@@ -19,6 +19,9 @@ void main() async {
         darkTheme: darkTheme(),
         themeMode: ThemeMode.light,
         locale: AppLocale.instance.locale,
+        themeData: ThemeData(
+          fontFamily: 'BalooBhaijaan2',
+        ),
         supportedLocales: [
           Locale('vn'),
           Locale('en'),

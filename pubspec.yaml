@@ -48,19 +48,27 @@ flutter_icons:
   ios: true
   image_path: "public/assets/app_icon/icon.png"
 
-flutter:
-
+flutter: 
+  fonts:
+    - family: SourceSansPro
+      fonts:
+        - asset: public/assets/fonts/Source_Sans_Pro/SourceSansPro-SemiBold.ttf
+        - asset: public/assets/fonts/Source_Sans_Pro/SourceSansPro-Italic.ttf
+          weight: 500
+    - family: BalooBhaijaan2
+      fonts:
+        - asset: public/assets/fonts/BalooBhaijaan2-VariableFont_wght.ttf
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
+   
   # To add assets to your application, add an assets section, like this:
   assets:
     - public/assets/app_icon/
     - public/assets/
     - public/assets/fonts/
-    - public/assets/images/nylo_logo.png
+    - public/assets/images/
     - lang/en.json
     - .env
   #   - images/a_dot_ham.jpeg

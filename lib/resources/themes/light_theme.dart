@@ -74,9 +74,11 @@ TextTheme _lightTextTheme() {
   return TextTheme(
     headline6: TextStyle(
       color: lightPrimaryContent,
+      fontSize: 20,
     ),
     headline5: TextStyle(
       color: lightPrimaryContent,
+      fontSize: 20,
     ),
     headline4: TextStyle(
       color: lightPrimaryContent,
@@ -95,12 +97,14 @@ TextTheme _lightTextTheme() {
     ),
     subtitle1: TextStyle(
       color: lightPrimaryContent,
+      fontSize: 20,
     ),
     overline: TextStyle(
       color: lightPrimaryContent,
     ),
     button: TextStyle(
       color: lightPrimaryContent.withOpacity(0.8),
+      fontSize: 20,
     ),
     bodyText2: TextStyle(
       color: lightPrimaryContent.withOpacity(0.8),

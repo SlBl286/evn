@@ -42,17 +42,17 @@ class KiemTraItem extends StatelessWidget {
           ],
         ),
         padding: EdgeInsets.symmetric(
-          vertical: 10,
+          vertical: 8,
           horizontal: 15,
         ),
-        height: 155,
+        height: 174,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               (line1 ?? "line 1").toUpperCase(),
               style: TextStyle(
-                color: NyColors.of(context).primaryContent,
+                color: NyColors.of(context).secondaryContent,
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
               ),
@@ -63,7 +63,7 @@ class KiemTraItem extends StatelessWidget {
             Text(
               (line2 ?? "line 2").toUpperCase(),
               style: TextStyle(
-                color: NyColors.of(context).primaryContent,
+                color: NyColors.of(context).secondaryContent,
                 fontSize: 13,
               ),
             ),
@@ -73,7 +73,7 @@ class KiemTraItem extends StatelessWidget {
             Text(
               (line3 ?? "line 3").toLowerCase(),
               style: TextStyle(
-                color: NyColors.of(context).primaryContent.withOpacity(0.87),
+                color: NyColors.of(context).secondaryContent.withOpacity(0.87),
                 fontWeight: FontWeight.bold,
                 fontSize: 13,
               ),
@@ -84,7 +84,7 @@ class KiemTraItem extends StatelessWidget {
             Text(
               (line4 ?? "line 4").toLowerCase(),
               style: TextStyle(
-                color: NyColors.of(context).secondaryContent,
+                color: NyColors.of(context).primaryContent.withAlpha(150),
                 fontWeight: FontWeight.bold,
                 fontSize: 14,
               ),
@@ -103,14 +103,15 @@ class KiemTraItem extends StatelessWidget {
                           Radius.circular(5),
                         ),
                       ),
-                      width: 110,
-                      height: 32,
+                      width: 100,
+                      height: 30,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
                             MdiIcons.pen,
                             color: NyColors.of(context).primaryContent,
+                            size: 18,
                           ),
                           SizedBox(
                             width: 5,

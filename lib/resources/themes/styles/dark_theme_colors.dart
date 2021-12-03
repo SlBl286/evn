@@ -26,10 +26,10 @@ class DarkThemeColors implements BaseStyles {
   Color get bottomTabBarBackground => const Color(0xFF232c33);
 
   // bottom tab bar - icons
-  Color get bottomTabBarIconSelected => Colors.white70;
-  Color get bottomTabBarIconUnselected => Colors.white60;
+  Color get bottomTabBarIconSelected => Color(0xFF0077b6);
+  Color get bottomTabBarIconUnselected => Colors.white70;
 
   // bottom tab bar - label
-  Color get bottomTabBarLabelUnselected => Colors.white54;
+  Color get bottomTabBarLabelUnselected => Color(0xFF0077b6);
   Color get bottomTabBarLabelSelected => Colors.white;
 }

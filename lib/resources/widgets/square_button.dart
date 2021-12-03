@@ -37,7 +37,7 @@ class _SquareButtonState extends State<SquareButton> {
             Icon(
               widget.icon ?? MdiIcons.nullIcon,
               size: 30,
-              color: NyColors.of(context).primaryContent,
+              color: Colors.white,
             ),
             SizedBox(
               height: 5,
@@ -46,8 +46,7 @@ class _SquareButtonState extends State<SquareButton> {
               fit: BoxFit.contain,
               child: Text(
                 widget.label,
-                style: TextStyle(
-                    color: NyColors.of(context).primaryContent, fontSize: 15),
+                style: TextStyle(color: Colors.white, fontSize: 15),
               ),
             ),
           ],
