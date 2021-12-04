@@ -35,6 +35,8 @@ class _TraCuuPageState extends NyState<TraCuuPage> {
         backgroundColor: NyColors.of(context).appBarBackground,
         title: isSearching
             ? TextField(
+                style:
+                    TextStyle(color: NyColors.of(context).appBarPrimaryContent),
                 cursorColor: NyColors.of(context).appBarPrimaryContent,
                 decoration: InputDecoration(
                     enabledBorder: UnderlineInputBorder(

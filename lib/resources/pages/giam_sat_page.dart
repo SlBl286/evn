@@ -52,6 +52,8 @@ class _GiamSatPageState extends NyState<GiamSatPage> {
         backgroundColor: NyColors.of(context).appBarBackground,
         title: isSearching
             ? TextField(
+                style:
+                    TextStyle(color: NyColors.of(context).appBarPrimaryContent),
                 cursorColor: NyColors.of(context).appBarPrimaryContent,
                 decoration: InputDecoration(
                     enabledBorder: UnderlineInputBorder(
@@ -191,9 +193,15 @@ class DsTab extends StatelessWidget {
             List<Widget> a = [];
             for (var i = 0; i < 10; i++) {
               a.add(Container(
+                decoration: BoxDecoration(
+                  color: NyColors.of(context).primaryAccent, 
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                color: NyColors.of(context).primaryAccent,
                 child: ListTile(
+                  shape: RoundedRectangleBorder(
+                      borderRadius:
+                          new BorderRadius.all(new Radius.circular(10))),
                   leading: Icon(
                     Icons.person,
                     color: Colors.white,

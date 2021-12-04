@@ -37,7 +37,8 @@ class _KiemTraPageState extends NyState<KiemTraPage> {
         automaticallyImplyLeading: false,
         backgroundColor: NyColors.of(context).appBarBackground,
         title: isSearching
-            ? TextField(
+            ? TextField(style:
+                    TextStyle(color: NyColors.of(context).appBarPrimaryContent),
                 cursorColor: NyColors.of(context).appBarPrimaryContent,
                 decoration: InputDecoration(
                     enabledBorder: UnderlineInputBorder(

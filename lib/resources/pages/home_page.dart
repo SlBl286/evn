@@ -64,16 +64,18 @@ class _MyHomePageState extends NyState<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // flexibleSpace: Container(
-        //   decoration: BoxDecoration(
-        //     image: DecorationImage(
-        //         image: AssetImage(
-        //           'public/assets/images/appbar_img.jpg',
-        //         ),
-        //         fit: BoxFit.fill,
-        //         matchTextDirection: true),
-        //   ),
-        // ),
+        flexibleSpace: Container(
+          height: 300,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            image: DecorationImage(
+                image: AssetImage(
+                  'public/assets/images/appbar_img.jpg',
+                ),
+                fit: BoxFit.fill,
+                matchTextDirection: true),
+          ),
+        ),
         backgroundColor: NyColors.of(context).appBarBackground,
         title: Container(
           child: Row(

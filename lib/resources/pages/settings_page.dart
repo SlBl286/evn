@@ -44,7 +44,16 @@ class _SettingsPageState extends NyState<SettingsPage> {
               label: 'Cài đặt 1',
               icon: Icons.settings,
               subItem: [
-                Icon(Icons.ac_unit, color: NyColors.of(context).primaryContent),
+                Container(
+                  width: 30,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: NyColors.of(context).secondaryContent,
+                  ),
+                  child: Icon(Icons.settings,
+                      color: NyColors.of(context).primaryAccent),
+                ),
               ],
             ),
             SettingItemWidget(

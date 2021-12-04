@@ -32,6 +32,7 @@ class KiemTraItem extends StatelessWidget {
         margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
         decoration: BoxDecoration(
           color: NyColors.of(context).primaryAccent,
+          borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
               color: NyColors.of(context).primaryAccent.withOpacity(0.6),

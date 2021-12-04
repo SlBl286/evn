@@ -43,6 +43,8 @@ class _ThuThapPageState extends NyState<ThuThapPage> {
         backgroundColor: NyColors.of(context).appBarBackground,
         title: isSearching
             ? TextField(
+                style:
+                    TextStyle(color: NyColors.of(context).appBarPrimaryContent),
                 cursorColor: NyColors.of(context).appBarPrimaryContent,
                 decoration: InputDecoration(
                     enabledBorder: UnderlineInputBorder(
@@ -154,9 +156,14 @@ class _ThuThapPageState extends NyState<ThuThapPage> {
                                 routeTo(FormDoiTuongPage.route, data: item);
                               },
                               child: Container(
-                                decoration: BoxDecoration(),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
                                 padding: EdgeInsets.only(bottom: 10),
                                 child: ListTile(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: new BorderRadius.all(
+                                          new Radius.circular(10))),
                                   tileColor: NyColors.of(context).primaryAccent,
                                   leading: Icon(
                                     Icons.person,

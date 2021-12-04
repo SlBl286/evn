@@ -3,6 +3,7 @@ import 'package:flutter_app/config/app_theme.dart';
 import 'package:flutter_app/resources/pages/home_page.dart';
 import 'package:flutter_app/resources/widgets/setting_item_widget.dart';
 import 'package:flutter_app/resources/widgets/so_item.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:maplibre_gl/mapbox_gl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nylo_framework/nylo_framework.dart';
@@ -24,6 +25,7 @@ class _DoiTuongKiemTraPageState extends NyState<DoiTuongKiemTraPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool isSearching = false;
   int _selectedIndex = 1;
+  bool _a = false, _b = false;
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -46,10 +48,6 @@ class _DoiTuongKiemTraPageState extends NyState<DoiTuongKiemTraPage> {
     _scaffoldKey.currentState!.openEndDrawer();
   }
 
-  void _closeEndDrawer() {
-    Navigator.of(context).pop();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,6 +58,8 @@ class _DoiTuongKiemTraPageState extends NyState<DoiTuongKiemTraPage> {
         backgroundColor: NyColors.of(context).appBarBackground,
         title: isSearching
             ? TextField(
+                style:
+                    TextStyle(color: NyColors.of(context).appBarPrimaryContent),
                 cursorColor: NyColors.of(context).appBarPrimaryContent,
                 decoration: InputDecoration(
                     enabledBorder: UnderlineInputBorder(
@@ -160,8 +160,71 @@ class _DoiTuongKiemTraPageState extends NyState<DoiTuongKiemTraPage> {
                   endIndent: 5,
                   color: NyColors.of(context).primaryAccent,
                 ),
-                SettingItemWidget(label: 'Sắp xếp', icon: Icons.sort_by_alpha),
-                SettingItemWidget(label: 'Lọc theo', icon: Icons.filter_list),
+                SettingItemWidget(
+                  label: 'Sắp xếp',
+                  icon: Icons.sort_by_alpha,
+                  subItem: [
+                    Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: NyColors.of(context).secondaryContent,
+                      ),
+                      child: Icon(Icons.arrow_downward,
+                          color: NyColors.of(context).primaryAccent),
+                    ),
+                    Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: NyColors.of(context).secondaryContent,
+                      ),
+                      child: Icon(Icons.arrow_upward,
+                          color: NyColors.of(context).primaryAccent),
+                    ),
+                  ],
+                ),
+                SettingItemWidget(
+                  direction: Direction.vertical,
+                  label: 'Lọc theo',
+                  icon: Icons.filter_list,
+                  subItem: [
+                    Row(
+                      children: [
+                        Checkbox(
+                            onChanged: (bool) {
+                              setState(() {
+                                _a = !_a;
+                              });
+                            },
+                            value: _a),
+                        Text(
+                          'Đã có vị trí',
+                          style: TextStyle(
+                              color: NyColors.of(context).secondaryContent),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Checkbox(
+                            onChanged: (bool) {
+                              setState(() {
+                                _b = !_b;
+                              });
+                            },
+                            value: _b),
+                        Text(
+                          'Chua có vị trí',
+                          style: TextStyle(
+                              color: NyColors.of(context).secondaryContent),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
                 SettingItemWidget(label: 'Chỉnh sửa', icon: Icons.edit),
                 Divider(
                   indent: 5,

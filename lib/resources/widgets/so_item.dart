@@ -25,6 +25,7 @@ class SoItem extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
         decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
           color: NyColors.of(context).primaryAccent,
           boxShadow: [
             BoxShadow(

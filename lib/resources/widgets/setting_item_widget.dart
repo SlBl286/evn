@@ -4,21 +4,31 @@ import 'package:flutter_app/config/app_theme.dart';
 class SettingItemWidget extends StatelessWidget {
   final String label;
   final IconData icon;
+
+  final Direction direction;
+
   List<Widget> subItem = [];
   SettingItemWidget(
       {Key? key,
       required this.label,
       required this.icon,
-      this.subItem = const []})
+      this.subItem = const [],
+      this.direction = Direction.horizotal})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Detail(label: label, icon: icon, subItem: subItem);
+    return Detail(
+      label: label,
+      icon: icon,
+      subItem: subItem,
+      direction: direction,
+    );
   }
 }
 
 class Detail extends StatefulWidget {
+  final Direction direction;
   final String label;
   final IconData icon;
   List<Widget> subItem = [];
@@ -26,7 +36,8 @@ class Detail extends StatefulWidget {
       {Key? key,
       required this.label,
       required this.icon,
-      required this.subItem})
+      required this.subItem,
+      this.direction = Direction.horizotal})
       : super(key: key);
 
   @override
@@ -40,6 +51,7 @@ class _DetailState extends State<Detail> {
     return Column(
       children: [
         Container(
+          
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           child: GestureDetector(
             onTap: () {
@@ -47,7 +59,9 @@ class _DetailState extends State<Detail> {
                 setState(() {
                   _animatedHeight != 0.0
                       ? _animatedHeight = 0.0
-                      : _animatedHeight = 50.0;
+                      : _animatedHeight = widget.direction == Direction.vertical
+                          ? widget.subItem.length * 50.0
+                          : 50.0;
                 });
               }
             },
@@ -62,7 +76,7 @@ class _DetailState extends State<Detail> {
                     color: NyColors.of(context).primaryAccent,
                   ),
                   child: Icon(widget.icon,
-                      color: NyColors.of(context).primaryContent),
+                      color: NyColors.of(context).secondaryContent),
                 ),
                 Text(
                   widget.label,
@@ -78,15 +92,24 @@ class _DetailState extends State<Detail> {
         new AnimatedContainer(
           duration: const Duration(milliseconds: 120),
           child: _animatedHeight > 0
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: widget.subItem)
+              ? (widget.direction == Direction.horizotal
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: widget.subItem)
+                  : Column(
+                      children: widget.subItem,
+                    ))
               : null,
           height: _animatedHeight,
-          color: NyColors.of(context).background,
+          color: NyColors.of(context).primaryAccent,
           width: MediaQuery.of(context).size.width,
         )
       ],
     );
   }
+}
+
+enum Direction {
+  vertical,
+  horizotal,
 }
